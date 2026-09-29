@@ -1,0 +1,359 @@
+:root {
+  --paper: #eef2f6;
+  --card: #ffffff;
+  --ink: #1b2430;
+  --muted: #5b6878;
+  --rule: #c9d3de;
+  --cobalt: #2f5bea;
+  --sticker: #ffe58a;
+  --red: #c2352b;
+  --green: #2e7d4f;
+  --display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --body: 'Atkinson Hyperlegible', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 16px/1.5 var(--body);
+}
+
+button,
+input,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--cobalt);
+  outline-offset: 2px;
+}
+
+.page {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 48px 16px 64px;
+}
+
+/* Header: the stats read as a sentence instead of number tiles. */
+.masthead h1 {
+  font: 800 clamp(2.4rem, 7vw, 3.6rem) / 1 var(--display);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.summary {
+  font-size: 1.15rem;
+  color: var(--muted);
+  margin: 8px 0 32px;
+}
+
+.overdue-note {
+  color: var(--red);
+  font-weight: 700;
+}
+
+/* New task form */
+.new-task {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-end;
+  padding: 16px;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.field.grow {
+  flex: 1 1 200px;
+}
+
+.field input,
+.field select,
+.assign input,
+.status-select select {
+  padding: 8px 10px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+}
+
+button {
+  cursor: pointer;
+  padding: 9px 16px;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: #fff;
+}
+
+button:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+button.primary {
+  background: var(--cobalt);
+  border-color: var(--cobalt);
+  color: #fff;
+  font-weight: 700;
+}
+
+button.small {
+  padding: 5px 10px;
+  font-size: 0.875rem;
+}
+
+button.danger {
+  color: var(--red);
+}
+
+button.done-btn {
+  color: var(--green);
+}
+
+.form-error,
+.row-error,
+.banner {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--red);
+  font-size: 0.9rem;
+}
+
+.banner {
+  padding: 12px 16px;
+  margin-top: 16px;
+  border: 1px solid var(--red);
+  border-radius: 8px;
+  background: #fff;
+}
+
+/* Status filter */
+.filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 32px 0 12px;
+}
+
+.filter {
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+
+.filter.active {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #fff;
+}
+
+.empty {
+  color: var(--muted);
+  padding: 32px 0;
+}
+
+/* Task list: rows share one card, separated by rules. */
+.tasks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+}
+
+.task {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding: 16px;
+  border-left: 4px solid transparent;
+}
+
+.task + .task {
+  border-top: 1px solid var(--rule);
+}
+
+.task.status-in_progress {
+  border-left-color: var(--cobalt);
+}
+
+.task.status-done h3 {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+.task-main {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.task h3 {
+  font: 600 1.15rem/1.3 var(--display);
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.task-desc {
+  margin: 4px 0 0;
+  color: var(--muted);
+}
+
+.task-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 6px 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.priority.p-high {
+  color: var(--red);
+  font-weight: 700;
+}
+
+.due.overdue {
+  color: var(--red);
+}
+
+.task-side {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+/* The assignee name tag: a yellow sticker, slightly tilted. */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 4px 3px 10px;
+  background: var(--sticker);
+  border-radius: 3px;
+  font-weight: 700;
+  transform: rotate(-2deg);
+  box-shadow: 0 1px 0 rgba(27, 36, 48, 0.25);
+}
+
+.tag-x {
+  border: none;
+  background: transparent;
+  padding: 0 6px;
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.assign {
+  display: flex;
+  gap: 6px;
+}
+
+.assign input {
+  width: 140px;
+  padding: 5px 8px;
+}
+
+.status-select select {
+  padding: 5px 8px;
+  font-size: 0.875rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  color: var(--muted);
+}
+
+/* Request log: shows which endpoint each click hit and what status came back. */
+.log {
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+
+.log h2 {
+  font: 600 1rem var(--display);
+  margin: 0 0 8px;
+}
+
+.log ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+.log li {
+  display: flex;
+  gap: 12px;
+  padding: 4px 0;
+}
+
+.log-method {
+  width: 4.5em;
+  font-weight: 700;
+}
+
+.log-path {
+  flex: 1;
+  min-width: 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.log-status {
+  font-weight: 700;
+}
+
+.log-status.s2 {
+  color: var(--green);
+}
+
+.log-status.s4,
+.log-status.s5 {
+  color: var(--red);
+}
+
+.log-empty {
+  color: var(--muted);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  .page {
+    padding-top: 32px;
+  }
+
+  .new-task > * {
+    flex: 1 1 100%;
+  }
+}

@@ -4,6 +4,7 @@ RUBRIC.md
 # Node
 node_modules/
 coverage/
+dist/
 .nyc_output/
 
 # Environment
