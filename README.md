@@ -4,7 +4,7 @@ My submission for the take-home in [ASSIGNMENT.md](./ASSIGNMENT.md). I added tes
 found and reported its bugs, fixed some of them, and added a `PATCH /tasks/:id/assign` endpoint.
 
 - **Live demo:** _LIVE_URL_ (React UI and API on one server; the API is under `/tasks`)
-- **Repository:** _REPO_URL_
+- **Repository:** https://github.com/zacktiger/untested-api-submission
 
 > The live instance is on Render's free tier. It sleeps after ~15 minutes idle, so the first request can take
 > ~30 seconds. The data is in memory, so it resets whenever the server restarts or wakes up.
