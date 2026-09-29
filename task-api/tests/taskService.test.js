@@ -82,12 +82,12 @@ describe('getPaginated', () => {
     ['A', 'B', 'C', 'D', 'E'].forEach((title) => make({ title }));
   });
 
-  // BUG #1 (see BUG_REPORT.md): offset is page * limit, so page 1 skips the first page.
-  test.failing('page 1 returns the first `limit` tasks', () => {
+  // Regression tests for BUG #1 (fixed): page 1 used to skip the first page.
+  test('page 1 returns the first `limit` tasks', () => {
     expect(taskService.getPaginated(1, 2).map((t) => t.title)).toEqual(['A', 'B']);
   });
 
-  test.failing('last page returns the remainder', () => {
+  test('last page returns the remainder', () => {
     expect(taskService.getPaginated(3, 2).map((t) => t.title)).toEqual(['E']);
   });
 

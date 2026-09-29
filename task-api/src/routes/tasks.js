@@ -17,8 +17,9 @@ router.get('/', (req, res) => {
   }
 
   if (page !== undefined || limit !== undefined) {
-    const pageNum = parseInt(page) || 1;
-    const limitNum = parseInt(limit) || 10;
+    // Missing, non-numeric, zero or negative values fall back to page 1 / limit 10.
+    const pageNum = Math.max(parseInt(page) || 1, 1);
+    const limitNum = Math.max(parseInt(limit) || 10, 1);
     const tasks = taskService.getPaginated(pageNum, limitNum);
     return res.json(tasks);
   }

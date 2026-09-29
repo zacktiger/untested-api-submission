@@ -105,24 +105,38 @@ describe('GET /tasks', () => {
       for (const title of ['A', 'B', 'C', 'D', 'E']) await createTask({ title });
     });
 
-    // BUG #1: page=1 returns the second page.
-    test.failing('page=1 returns the first page', async () => {
+    // Regression tests for BUG #1 (fixed): page=1 used to return the second page.
+    test('page=1 returns the first page', async () => {
       const res = await request(app).get('/tasks?page=1&limit=2');
 
       expect(res.body.map((t) => t.title)).toEqual(['A', 'B']);
     });
 
-    test.failing('limit alone defaults to page 1', async () => {
+    test('limit alone defaults to page 1', async () => {
       const res = await request(app).get('/tasks?limit=3');
 
       expect(res.body.map((t) => t.title)).toEqual(['A', 'B', 'C']);
     });
 
-    test('non-numeric page and limit fall back to defaults instead of erroring', async () => {
+    test('page=2 returns the next slice', async () => {
+      const res = await request(app).get('/tasks?page=2&limit=2');
+
+      expect(res.body.map((t) => t.title)).toEqual(['C', 'D']);
+    });
+
+    test('non-numeric page and limit fall back to page 1, limit 10', async () => {
       const res = await request(app).get('/tasks?page=abc&limit=xyz');
 
       expect(res.status).toBe(200);
-      expect(Array.isArray(res.body)).toBe(true);
+      expect(res.body.map((t) => t.title)).toEqual(['A', 'B', 'C', 'D', 'E']);
+    });
+
+    test('zero or negative page is treated as page 1', async () => {
+      const zero = await request(app).get('/tasks?page=0&limit=2');
+      const negative = await request(app).get('/tasks?page=-3&limit=2');
+
+      expect(zero.body.map((t) => t.title)).toEqual(['A', 'B']);
+      expect(negative.body.map((t) => t.title)).toEqual(['A', 'B']);
     });
   });
 });

@@ -8,8 +8,10 @@ const findById = (id) => tasks.find((t) => t.id === id);
 
 const getByStatus = (status) => tasks.filter((t) => t.status.includes(status));
 
+// Pages are 1-based: page 1 starts at index 0.
+// (Was `page * limit`, which skipped the whole first page. See BUG_REPORT.md #1.)
 const getPaginated = (page, limit) => {
-  const offset = page * limit;
+  const offset = (page - 1) * limit;
   return tasks.slice(offset, offset + limit);
 };
 
