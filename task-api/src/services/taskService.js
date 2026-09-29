@@ -39,6 +39,7 @@ const create = ({ title, description = '', status = 'todo', priority = 'medium',
     status,
     priority,
     dueDate,
+    assignee: null, // set via PATCH /tasks/:id/assign
     completedAt: null,
     createdAt: new Date().toISOString(),
   };
@@ -79,6 +80,16 @@ const completeTask = (id) => {
   return updated;
 };
 
+// Sets (or clears, with null) who a task is assigned to.
+// The "already assigned to someone else" rule lives in the route, because it is an HTTP concern (409).
+const assignTask = (id, assignee) => {
+  const index = tasks.findIndex((t) => t.id === id);
+  if (index === -1) return null;
+
+  tasks[index] = { ...tasks[index], assignee };
+  return tasks[index];
+};
+
 const _reset = () => {
   tasks = [];
 };
@@ -93,5 +104,6 @@ module.exports = {
   update,
   remove,
   completeTask,
+  assignTask,
   _reset,
 };
