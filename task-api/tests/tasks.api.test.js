@@ -90,8 +90,8 @@ describe('GET /tasks', () => {
     expect(res.body.map((t) => t.title)).toEqual(['B']);
   });
 
-  // BUG #2: ?status=do matches both "todo" and "done".
-  test.failing('does not match a partial status', async () => {
+  // Regression test for BUG #2 (fixed): ?status=do used to match "todo" and "done".
+  test('does not match a partial status', async () => {
     await createTask({ status: 'todo' });
     await createTask({ status: 'done' });
 
@@ -199,14 +199,14 @@ describe('PUT /tasks/:id', () => {
     expect(res.body.id).toBe(task.id);
   });
 
-  // BUG #5: status: null passes validation, then GET ?status= crashes on null.includes().
-  test.failing('rejects status: null instead of breaking the status filter', async () => {
+  // BUG #5: status: null passes validation and is saved. Before fix #2 this also made
+  // GET ?status= crash with a 500 (null.includes); now it just stores a broken task.
+  test.failing('rejects status: null', async () => {
     const task = await createTask();
-    await request(app).put(`/tasks/${task.id}`).send({ status: null });
 
-    const res = await request(app).get('/tasks?status=todo');
+    const res = await request(app).put(`/tasks/${task.id}`).send({ status: null });
 
-    expect(res.status).toBe(200);
+    expect(res.status).toBe(400);
   });
 
   // BUG #7: marking done via PUT leaves completedAt null.

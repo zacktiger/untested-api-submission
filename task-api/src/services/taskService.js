@@ -6,7 +6,8 @@ const getAll = () => [...tasks];
 
 const findById = (id) => tasks.find((t) => t.id === id);
 
-const getByStatus = (status) => tasks.filter((t) => t.status.includes(status));
+// Exact match. (Was `t.status.includes(status)`, so "do" matched "todo" and "done". See BUG_REPORT.md #2.)
+const getByStatus = (status) => tasks.filter((t) => t.status === status);
 
 // Pages are 1-based: page 1 starts at index 0.
 // (Was `page * limit`, which skipped the whole first page. See BUG_REPORT.md #1.)

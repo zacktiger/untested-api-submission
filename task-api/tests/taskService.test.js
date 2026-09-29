@@ -67,8 +67,8 @@ describe('getByStatus', () => {
     expect(taskService.getByStatus('done').map((t) => t.title)).toEqual(['B']);
   });
 
-  // BUG #2 (see BUG_REPORT.md): uses String.includes, so partial words match.
-  test.failing('does not match on a partial status', () => {
+  // Regression test for BUG #2 (fixed): used String.includes, so partial words matched.
+  test('does not match on a partial status', () => {
     make({ status: 'todo' });
     make({ status: 'done' });
 
