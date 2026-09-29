@@ -263,8 +263,8 @@ describe('PATCH /tasks/:id/complete', () => {
     expect(res.status).toBe(404);
   });
 
-  // BUG #3: priority silently becomes "medium".
-  test.failing('keeps the original priority', async () => {
+  // Regression test for BUG #3 (fixed): priority used to silently become "medium".
+  test('keeps the original priority', async () => {
     const task = await createTask({ priority: 'high' });
 
     const res = await request(app).patch(`/tasks/${task.id}/complete`);

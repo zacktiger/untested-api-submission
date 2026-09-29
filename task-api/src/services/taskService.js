@@ -67,9 +67,9 @@ const completeTask = (id) => {
   const task = findById(id);
   if (!task) return null;
 
+  // Only status and completedAt change. (Used to also force priority to 'medium'. See BUG_REPORT.md #3.)
   const updated = {
     ...task,
-    priority: 'medium',
     status: 'done',
     completedAt: new Date().toISOString(),
   };

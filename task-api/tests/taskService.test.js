@@ -170,8 +170,8 @@ describe('completeTask', () => {
     expect(taskService.completeTask('nope')).toBeNull();
   });
 
-  // BUG #3 (see BUG_REPORT.md): completeTask hard-codes priority: 'medium'.
-  test.failing('does not change the priority', () => {
+  // Regression test for BUG #3 (fixed): completeTask used to hard-code priority: 'medium'.
+  test('does not change the priority', () => {
     const task = make({ priority: 'high' });
 
     expect(taskService.completeTask(task.id).priority).toBe('high');
