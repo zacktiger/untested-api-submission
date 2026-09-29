@@ -3,7 +3,7 @@
 My submission for the take-home in [ASSIGNMENT.md](./ASSIGNMENT.md). I added tests to a small Express task API,
 found and reported its bugs, fixed some of them, and added a `PATCH /tasks/:id/assign` endpoint.
 
-- **Live demo:** _LIVE_URL_ (React UI and API on one server; the API is under `/tasks`)
+- **Live demo:** https://untested-task-api-4k1h.onrender.com (React UI and API on one server; the API is under `/tasks`)
 - **Repository:** https://github.com/zacktiger/untested-api-submission
 
 > The live instance is on Render's free tier. It sleeps after ~15 minutes idle, so the first request can take
