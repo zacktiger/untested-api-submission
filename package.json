@@ -1,0 +1,13 @@
+{
+  "name": "untested-api-submission",
+  "private": true,
+  "description": "Root scripts used by the deploy: build the React client, then start the API (which serves it).",
+  "scripts": {
+    "build": "npm ci --omit=dev --prefix task-api && npm ci --include=dev --prefix client && npm run build --prefix client",
+    "start": "npm start --prefix task-api",
+    "test": "npm test --prefix task-api"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

@@ -1,0 +1,11 @@
+# Render Blueprint: one free web service runs the API and serves the React build.
+# Note: the store is in memory, and free instances sleep after ~15 min idle,
+# so data resets on restart or wake-up (same as `npm start` locally).
+services:
+  - type: web
+    name: untested-task-api
+    runtime: node
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    healthCheckPath: /tasks/stats
